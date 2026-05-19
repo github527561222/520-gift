@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>520 快乐，我的小蝴蝶 💕</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{overflow:hidden;font-family:'Microsoft YaHei','PingFang SC',sans-serif;height:100vh;background:#0a1628}
+.sky{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 120% 40% at 50% 100%,rgba(255,140,100,.12) 0%,transparent 50%),radial-gradient(ellipse 80% 50% at 50% 90%,rgba(100,80,160,.2) 0%,transparent 45%),linear-gradient(180deg,#020818 0%,#0a1a3a 12%,#152d5a 28%,#1e4a7a 48%,#3d6a9e 68%,#5a8ab8 82%,#7aa8cc 92%,#9ec0dc 100%)}
+.stars-layer{position:fixed;inset:0;pointer-events:none;z-index:1}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle var(--dur,3s) ease-in-out infinite;animation-delay:var(--delay,0s)}
+.star.bright{box-shadow:0 0 6px 1px rgba(255,255,255,.85)}
+@keyframes twinkle{0%,100%{opacity:var(--min-op,.25);transform:scale(1)}50%{opacity:1;transform:scale(1.35)}}
+.hero-wrap{position:fixed;top:0;left:0;right:0;z-index:110;padding:clamp(1rem,4vh,2rem) 1rem 0;text-align:center;pointer-events:none;animation:heroIn 2s ease-out}
+.hero-title{
+ font-size:clamp(1.6rem,5.5vw,3.4rem);font-weight:800;letter-spacing:.06em;
+ background:linear-gradient(120deg,#fff 0%,#ffd4f8 20%,#ffb6e8 40%,#b4e8ff 60%,#e8c4ff 80%,#fff 100%);
+ background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+ animation:heroShimmer 4s linear infinite,heroFloat 5s ease-in-out infinite;
+ filter:drop-shadow(0 0 12px rgba(255,180,230,.9)) drop-shadow(0 0 28px rgba(150,200,255,.5));
+ position:relative;display:inline-block
+}
+.hero-title::after{
+ content:'';position:absolute;inset:-8px -16px;z-index:-1;border-radius:12px;
+ background:linear-gradient(90deg,transparent,rgba(255,150,220,.15),rgba(150,200,255,.15),transparent);
+ animation:heroScan 3s ease-in-out infinite
+}
+.hero-glow{position:absolute;top:50%;left:50%;width:min(90vw,520px);height:80px;transform:translate(-50%,-50%);
+ background:radial-gradient(ellipse,rgba(255,150,220,.25) 0%,transparent 70%);pointer-events:none;z-index:-1;animation:heroPulse 3s ease-in-out infinite}
+@keyframes heroIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes heroShimmer{0%{background-position:0% 50%}100%{background-position:300% 50%}}
+@keyframes heroFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes heroScan{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes heroPulse{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+.credits-stage{
+ position:fixed;left:0;right:0;top:clamp(88px,14vh,120px);bottom:clamp(70px,12vh,100px);
+ z-index:95;overflow:hidden;pointer-events:none;
+ -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);
+ mask-image:linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%)
+}
+.credits-track{display:flex;flex-direction:column;align-items:center;gap:clamp(1.4rem,4vh,2.2rem);padding:0 1.2rem 40vh;will-change:transform}
+.credits-track.scrolling{animation:creditsRoll var(--roll-dur,48s) linear infinite}
+.credit-line{
+ text-align:center;max-width:min(92vw,640px);line-height:1.65;font-weight:600;
+ font-size:clamp(1rem,2.8vw,1.55rem);padding:0 .5rem;
+ background:linear-gradient(100deg,#fff 0%,#ffe0f4 25%,#c8e8ff 50%,#f0d4ff 75%,#fff 100%);
+ background-size:220% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+ animation:lineShimmer 5s linear infinite;
+ filter:drop-shadow(0 0 10px rgba(255,190,230,.85)) drop-shadow(0 0 20px rgba(140,190,255,.4))
+}
+.credit-line.highlight{font-size:clamp(1.15rem,3.2vw,1.75rem);font-weight:700;letter-spacing:.04em;
+ filter:drop-shadow(0 0 14px rgba(255,200,240,1)) drop-shadow(0 0 30px rgba(255,150,200,.6))}
+.credit-line.dim{opacity:.75;font-size:clamp(.9rem,2.4vw,1.2rem);font-weight:500}
+.credit-spacer{height:8vh}
+@keyframes creditsRoll{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+@keyframes lineShimmer{0%{background-position:0% 50%}100%{background-position:220% 50%}}
+.credits-loading{color:rgba(255,255,255,.7);font-size:1rem;text-shadow:0 0 12px rgba(255,200,230,.6);animation:loaderPulse 1.4s ease-in-out infinite}
+.butterfly{position:absolute;z-index:50;will-change:left,top;cursor:default}
+.butterfly.small{width:26px;height:26px}.butterfly.medium{width:40px;height:40px}.butterfly.large{width:56px;height:56px}
+.butterfly svg{width:100%;height:100%;overflow:visible}
+.butterfly .wing-left,.butterfly .wing-right{transform-origin:50px 50px;animation:wingFlap .32s ease-in-out infinite alternate}
+.butterfly .wing-right{animation-direction:alternate-reverse}
+@keyframes wingFlap{from{transform:scaleX(1)}to{transform:scaleX(.72)}}
+.butterfly-glow{animation:glowPulse 4s ease-in-out infinite}
+@keyframes glowPulse{0%,100%{filter:drop-shadow(0 0 8px var(--gc)) drop-shadow(0 0 14px var(--gc))}50%{filter:drop-shadow(0 0 16px var(--gc)) drop-shadow(0 0 28px var(--gc)) brightness(1.12)}}
+.sparkle-dot{animation:sparkle 1.2s ease-in-out infinite}
+@keyframes sparkle{0%,100%{opacity:.25}50%{opacity:1}}
+.trail{position:fixed;width:5px;height:5px;border-radius:50%;pointer-events:none;z-index:40;animation:trailFade .7s ease-out forwards}
+@keyframes trailFade{to{opacity:0;transform:scale(0)}}
+.heart-particle{position:fixed;pointer-events:none;z-index:200;animation:heartBurst 1.6s ease-out forwards}
+@keyframes heartBurst{0%{opacity:1;transform:translate(0,0) scale(.4)}100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1.1)}}
+.floating-heart{position:fixed;pointer-events:none;z-index:30;animation:floatUp var(--fd,10s) linear forwards}
+@keyframes floatUp{0%{transform:translateY(100vh);opacity:0}10%{opacity:.65}90%{opacity:.45}100%{transform:translateY(-60px);opacity:0}}
+.music-panel{position:fixed;bottom:24px;right:24px;z-index:1000;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.music-hint{font-size:.72rem;color:rgba(255,255,255,.8);text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.music-btn{width:54px;height:54px;border:2px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(255,255,255,.12);backdrop-filter:blur(10px);color:#fff;font-size:22px;cursor:pointer;transition:transform .25s}
+.music-btn:hover{transform:scale(1.07)}.music-btn.playing{animation:btnPulse 1.1s ease-in-out infinite;border-color:rgba(255,180,220,.7)}
+@keyframes btnPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.loader{position:fixed;inset:0;background:#020818;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 1s,visibility 1s}
+.loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-text{color:rgba(255,255,255,.85);font-size:1.05rem;animation:loaderPulse 1.4s ease-in-out infinite}
+@keyframes loaderPulse{0%,100%{opacity:.45}50%{opacity:1}}
+.secret-toast{position:fixed;bottom:96px;left:50%;transform:translateX(-50%) translateY(16px);padding:12px 22px;border-radius:22px;background:rgba(255,255,255,.1);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:.95rem;opacity:0;pointer-events:none;z-index:500;transition:opacity .35s,transform .35s;max-width:88vw;text-align:center}
+.secret-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="loader" id="loader"><span class="loader-text">小蝴蝶，正在为你点亮星空…</span></div>
+<div class="sky"></div>
+<div class="stars-layer" id="starsLayer"></div>
+<div class="hero-wrap">
+<div class="hero-glow"></div>
+<h1 class="hero-title">520 快乐，我的小蝴蝶 💕</h1>
+</div>
+<div class="credits-stage" id="creditsStage">
+<div class="credits-track" id="creditsTrack"><p class="credits-loading">正在读取你的心意…</p></div>
+</div>
+<div class="secret-toast" id="secretToast"></div>
+<div class="music-panel" id="musicPanel">
+<span class="music-hint">告白气球 · 点击播放</span>
+<button class="music-btn" id="musicBtn" type="button" title="播放/暂停 告白气球">🎵</button>
+</div>
+<audio id="bgMusic" loop preload="auto"><source src="assets/gaobaiqiqiu.mp3" type="audio/mpeg"></audio>
+<script>
+
+const PALETTES=[
+{c1:'#ff6b9d',c2:'#ffc0cb',g:'#ff69b4'},{c1:'#ff9a56',c2:'#ffcd56',g:'#ffb347'},
+{c1:'#56d4ff',c2:'#a8e6ff',g:'#5ec8ff'},{c1:'#c56cff',c2:'#e8b4ff',g:'#da70d6'},
+{c1:'#56ff9a',c2:'#b4ffd4',g:'#50fa9a'},{c1:'#ff56a8',c2:'#ff8ec8',g:'#ff1493'},
+{c1:'#ffd700',c2:'#fff4a8',g:'#ffd700'},{c1:'#ff6b6b',c2:'#ffb4b4',g:'#ff6b6b'},
+{c1:'#7b68ee',c2:'#b4a8ff',g:'#9370db'},{c1:'#00ced1',c2:'#7fffd4',g:'#40e0d0'}
+];
+const SECRETS=['每一只蝴蝶，都是我对你的一次心动','蓝调时刻的星空下，只想和你一起看','塞纳河畔的咖啡，不如你微笑的美','你就像蝴蝶，飞进我心里再也不愿离开'];
+let bid=0,specialEl=null;
+const mouse={x:innerWidth/2,y:innerHeight/2};
+
+function createStars(){
+ const layer=document.getElementById('starsLayer');
+ const n=innerWidth<768?280:450;
+ for(let i=0;i<n;i++){
+  const s=document.createElement('div');
+  s.className='star'+(Math.random()<.15?' bright':'');
+  const size=Math.random()<.08?3:Math.random()<.25?2:1;
+  s.style.width=s.style.height=size+'px';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*88+'%';
+  s.style.setProperty('--dur',(2+Math.random()*4)+'s');
+  s.style.setProperty('--delay',Math.random()*5+'s');
+  s.style.setProperty('--min-op',(.15+Math.random()*.35).toFixed(2));
+  layer.appendChild(s);
+ }
+}
+
+function butterflySVG(p,id){
+ const gid='g'+id;
+ return `<svg viewBox="0 0 100 100" class="butterfly-glow" style="--gc:${p.g}">
+ <defs>
+  <radialGradient id="${gid}a" cx="40%" cy="40%"><stop offset="0%" stop-color="#fff" stop-opacity=".9"/><stop offset="50%" stop-color="${p.c1}"/><stop offset="100%" stop-color="${p.c2}"/></radialGradient>
+  <radialGradient id="${gid}b" cx="60%" cy="40%"><stop offset="0%" stop-color="#fff" stop-opacity=".85"/><stop offset="50%" stop-color="${p.c2}"/><stop offset="100%" stop-color="${p.c1}"/></radialGradient>
+ </defs>
+ <g class="wing-left"><ellipse cx="28" cy="38" rx="22" ry="30" fill="url(#${gid}a)" opacity=".95"/><ellipse cx="22" cy="58" rx="16" ry="22" fill="url(#${gid}a)" opacity=".85"/></g>
+ <g class="wing-right"><ellipse cx="72" cy="38" rx="22" ry="30" fill="url(#${gid}b)" opacity=".95"/><ellipse cx="78" cy="58" rx="16" ry="22" fill="url(#${gid}b)" opacity=".85"/></g>
+ <ellipse cx="50" cy="52" rx="4" ry="22" fill="#2a1a3a"/>
+ <circle class="sparkle-dot" cx="18" cy="28" r="2" fill="#fff"/><circle class="sparkle-dot" cx="82" cy="32" r="1.5" fill="#fff" style="animation-delay:.4s"/>
+ <circle class="sparkle-dot" cx="35" cy="48" r="1.2" fill="#fff" style="animation-delay:.8s"/>
+ <line x1="50" y1="32" x2="44" y2="18" stroke="${p.c1}" stroke-width="1.5"/><line x1="50" y1="32" x2="56" y2="18" stroke="${p.c1}" stroke-width="1.5"/>
+</svg>`;
+}
+
+function spawnButterfly(isSpecial){
+ const el=document.createElement('div');
+ const sizes=['small','medium','large'];
+ el.className='butterfly '+sizes[Math.floor(Math.random()*3)];
+ const p=PALETTES[Math.floor(Math.random()*PALETTES.length)];
+ const id=++bid;
+ el.innerHTML=butterflySVG(p,id);
+ el.style.setProperty('--gc',p.g);
+ el.dataset.hasTrail=Math.random()<.35?'1':'0';
+ if(isSpecial){el.style.filter='brightness(1.2)';el.title='点我有惊喜'}
+ let x=Math.random()*innerWidth,y=Math.random()*innerHeight;
+ el.style.left=x+'px';el.style.top=y+'px';
+ document.body.appendChild(el);
+ if(isSpecial){
+  specialEl=el;
+  el.addEventListener('click',e=>{
+   e.stopPropagation();
+   showSecret(SECRETS[Math.floor(Math.random()*SECRETS.length)]);
+  });
+ }
+ fly(el,x,y,p);
+ return el;
+}
+
+function fly(el,x,y,p){
+ const dur=12000+Math.random()*14000;
+ const sx=x,sy=y;
+ const ex=Math.random()*innerWidth,ey=Math.random()*innerHeight;
+ const c1x=sx+(Math.random()-.5)*innerWidth*.6,c1y=sy+(Math.random()-.5)*innerHeight*.5;
+ const c2x=ex+(Math.random()-.5)*innerWidth*.6,c2y=ey+(Math.random()-.5)*innerHeight*.5;
+ const t0=performance.now();
+ let lastTrail=0;
+ function step(now){
+  const t=Math.min((now-t0)/dur,1);
+  const u=1-t;
+  const px=u*u*u*sx+3*u*u*t*c1x+3*u*t*t*c2x+t*t*t*ex;
+  const py=u*u*u*sy+3*u*u*t*c1y+3*u*t*t*c2y+t*t*t*ey;
+  const dx=px-mouse.x,dy=py-mouse.y;
+  const dist=Math.hypot(dx,dy);
+  let ox=0,oy=0;
+  if(dist<120&&dist>0){ox=dx/dist*18;oy=dy/dist*18;}
+  el.style.left=(px+ox)+'px';
+  el.style.top=(py+oy)+'px';
+  el.style.transform='rotate('+Math.atan2(py-sy,px-sx)*.3+'rad)';
+  if(el.dataset.hasTrail==='1'&&now-lastTrail>80){
+   lastTrail=now;
+   const tr=document.createElement('div');
+   tr.className='trail';
+   tr.style.left=(px+ox)+'px';tr.style.top=(py+oy)+'px';
+   tr.style.background=p.c1;tr.style.boxShadow='0 0 8px '+p.g;
+   document.body.appendChild(tr);
+   setTimeout(()=>tr.remove(),700);
+  }
+  if(t<1)requestAnimationFrame(step);
+  else fly(el,ex,ey,p);
+ }
+ requestAnimationFrame(step);
+}
+
+function showSecret(msg){
+ const t=document.getElementById('secretToast');
+ t.textContent=msg;t.classList.add('show');
+ clearTimeout(showSecret._t);
+ showSecret._t=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+document.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+document.addEventListener('touchmove',e=>{if(e.touches[0]){mouse.x=e.touches[0].clientX;mouse.y=e.touches[0].clientY}},{passive:true});
+
+document.addEventListener('click',e=>{
+ if(e.target.closest('.music-btn'))return;
+ const hearts=['💕','💖','💗','✨','🦋'];
+ for(let i=0;i<10;i++){
+  const h=document.createElement('div');
+  h.className='heart-particle';
+  h.textContent=hearts[i%hearts.length];
+  h.style.left=e.clientX+'px';h.style.top=e.clientY+'px';
+  h.style.fontSize=(14+Math.random()*14)+'px';
+  const a=Math.random()*Math.PI*2,d=40+Math.random()*80;
+  h.style.setProperty('--tx',Math.cos(a)*d+'px');
+  h.style.setProperty('--ty',Math.sin(a)*d+'px');
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),1600);
+ }
+});
+
+function heartRain(){
+ for(let i=0;i<50;i++)setTimeout(()=>{
+  const h=document.createElement('div');
+  h.className='floating-heart';
+  h.textContent=['💕','💖','💗','💓'][i%4];
+  h.style.left=Math.random()*100+'%';
+  h.style.fontSize=(12+Math.random()*18)+'px';
+  h.style.setProperty('--fd',(3+Math.random()*2)+'s');
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+ },i*40);
+}
+
+let pressTimer;
+const startPress=()=>{pressTimer=setTimeout(heartRain,3000)};
+const endPress=()=>clearTimeout(pressTimer);
+document.addEventListener('mousedown',startPress);
+document.addEventListener('mouseup',endPress);
+document.addEventListener('touchstart',startPress,{passive:true});
+document.addEventListener('touchend',endPress);
+
+setInterval(()=>{
+ const h=document.createElement('div');
+ h.className='floating-heart';
+ h.textContent=['💕','💖','💗','✨'][Math.floor(Math.random()*4)];
+ h.style.left=Math.random()*100+'%';
+ h.style.fontSize=(10+Math.random()*10)+'px';
+ h.style.setProperty('--fd',(8+Math.random()*6)+'s');
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),14000);
+},2200);
+
+const bgMusic=document.getElementById('bgMusic');
+const musicBtn=document.getElementById('musicBtn');
+let playing=false;
+musicBtn.addEventListener('click',async()=>{
+ try{
+  if(playing){bgMusic.pause();musicBtn.textContent='🎵';musicBtn.classList.remove('playing');playing=false;}
+  else{await bgMusic.play();musicBtn.textContent='🎶';musicBtn.classList.add('playing');playing=true;}
+ }catch(e){showSecret('请将《告白气球》MP3 放入 assets/gaobaiqiqiu.mp3');}
+});
+document.body.addEventListener('click',function firstPlay(){
+ if(!playing){bgMusic.play().then(()=>{playing=true;musicBtn.textContent='🎶';musicBtn.classList.add('playing');}).catch(()=>{});}
+},{once:true});
+
+async function initCredits(){
+ const track=document.getElementById('creditsTrack');
+ let lines=[];
+ try{
+  const res=await fetch('explain.txt');
+  if(!res.ok)throw new Error('not found');
+  const text=await res.text();
+  lines=text.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+ }catch{
+  lines=[
+   '你是我生命中最美的蝴蝶',
+   '愿你永远自由飞翔，而我永远守护你',
+   '遇见你，是我最美的意外'
+  ];
+ }
+ if(!lines.length){
+  track.innerHTML='<p class="credit-line">请在 explain.txt 中写下你想说的话</p>';
+  return;
+ }
+ function buildBlock(){
+  const frag=document.createDocumentFragment();
+  lines.forEach((line,i)=>{
+   const p=document.createElement('p');
+   p.className='credit-line'+(i%3===0?' highlight':i%3===2?' dim':'');
+   p.textContent=line;
+   frag.appendChild(p);
+  });
+  const spacer=document.createElement('div');
+  spacer.className='credit-spacer';
+  frag.appendChild(spacer);
+  return frag;
+ }
+ track.innerHTML='';
+ track.appendChild(buildBlock());
+ track.appendChild(buildBlock());
+ track.style.setProperty('--roll-dur',Math.max(24,lines.length*5)+'s');
+ track.classList.add('scrolling');
+}
+
+createStars();
+initCredits();
+const count=innerWidth<768?28:42;
+for(let i=0;i<count;i++)setTimeout(()=>spawnButterfly(false),i*180);
+setTimeout(()=>spawnButterfly(true),800);
+setTimeout(()=>{document.getElementById('loader').classList.add('hidden');},1500);
+</script>
+</body>
+</html>
